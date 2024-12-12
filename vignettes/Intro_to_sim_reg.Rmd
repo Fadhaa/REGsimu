@@ -1,0 +1,62 @@
+---
+title: "Introduction to simulating data via regression"
+author: "Fadhaa Ali"
+date: "8^th^ December 2024"
+output: html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to simulating data via regression}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(REGsimu)
+```
+
+## Overview
+
+This package is to explain how applying lm model to data. 
+
+## Workflow
+
+Steps of fitting lm model to simulated data are given below:
+
+1. Set the sample size n and the number of independent variables.
+
+2. Set the parameters of the model $\beta_i$ and then generate $X_{.j}\sim N(n,0,1), where j=1,2,..,nv$
+
+3. Calculate $y_i$ from $y_i=\beta_j X_{ij}+\epsilon_{i}$
+
+4. format the generated data as data frame. Use the following function
+
+```{r}
+library(REGsimu)
+data(rg_data)
+head(rg_data)
+```
+
+Or you can generate the data by this code
+
+```{r}
+new_data<-rgsim(100,3)
+head(new_data$data)
+head(new_data$par)
+```
+
+5. Apply regress function to the generated data by
+
+```{r}
+model<-regress(new_data$data)
+summary(model)
+```
+
+The output showing the estimated parameters and compared them to the original values
+
+
